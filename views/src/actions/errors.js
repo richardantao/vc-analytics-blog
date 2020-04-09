@@ -1,4 +1,5 @@
 import { ERRORS_RETURNED, ERRORS_LOGGED, ERRORS_CLEARED } from "./types";
+import axios from "axios";
 
 /**
  * @summary return errors to UI
