@@ -11,8 +11,13 @@ import { Row, Col } from "reactstrap";
 /* --- Atoms --- */
 import Loading from "../../atoms/Loading";
 
+/* --- Molecules --- */
+import Card from "../../molecules/Card/Card";
+
 /* --- Organisms --- */
 import Nav from "../../organisms/Nav";
+
+import "./Dashboard.scss";
 
 class Dashboard extends Component {
     state = {
@@ -32,29 +37,30 @@ class Dashboard extends Component {
     };
     
     render() {
-        const { posts, isLoading } = this.props.posts;
+        const { posts, isLoading } = this.props.post;
 
         return (
             <>
                 <Helmet>
                     <title>Dashboard</title>
                 </Helmet>
-                <Nav/>
-                <main role="main">
+                <Nav posts={posts}/>
+                <main role="main" id="dashboard">
                     { isLoading ? <Loading/> :
                         <Row>
-                            <Col>
-                                {posts.map(({ _id, title, category, body }) => {
-                                    return (
+                            {posts.map(({ _id, title, category, text, urlPath }) => {
+                                return (
+                                    <Col xs="4" sm="4" md="4" lg="4" xl="4">
                                         <Card
                                             key={_id}
                                             title={title}
                                             category={category}
-                                            body={body}
+                                            text={text}
+                                            urlPath={urlPath}
                                         />
-                                    );
-                                })}
-                            </Col>
+                                    </Col>
+                                );
+                            })}
                         </Row>
                     }
                 </main>
