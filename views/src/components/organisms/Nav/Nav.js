@@ -1,46 +1,96 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
-import { connect } from "react-redux";
-import { fetchPosts } from "../../../actions/posts";
-import { clearErrors } from "../../../actions/errors"; 
-import PropTypes from "prop-types"; 
+import { 
+    Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavLink, NavbarText,
+    UncontrolledDropdown, DropdownMenu, DropdownToggle, DropdownItem
+} from "reactstrap";
 
-import { Nav as Nv } from "reactstrap";
+export default ({ posts }) => {
+    const [isOpen, setIsOpen] = useState(false);
 
-class Nav extends Component {
-    state = {
+    const toggle = () => setIsOpen(!isOpen);
 
-    };
-
-    static propTypes = {
-        error: PropTypes.object.isRequired,
-        post: PropTypes.object.isRequired,
-        fetchPosts: PropTypes.func.isRequired,
-        clearErrors: PropTypes.func.isRequired
-    };
-
-    async componentDidMount() {
-        const { clearErrors, fetchPosts } = this.props;
-        await clearErrors();
-        await fetchPosts();
-    };
-    
-    render() {
-        const { posts } = this.props.post;
-        
-        return (
-            <Nv>
-                
-            </Nv>
-        );
-    };
+    return (
+        <Navbar color="light" light expand="md">
+            <NavbarBrand href="/blog/dashboard">Dashboard</NavbarBrand>
+            <NavbarToggler onClick={toggle} />
+            <Collapse isOpen={isOpen} navbar>
+                <Nav className="mr-auto">
+                    <UncontrolledDropdown>
+                        <DropdownToggle nav caret>
+                            Finance
+                        </DropdownToggle>
+                        <DropdownMenu right>
+                            {posts.map(({ title, category, urlPath }) => {
+                                if(category === "Finance") {
+                                    return (
+                                        <DropdownItem>
+                                            <NavLink href={`/blog/${urlPath}`}>
+                                                {title}
+                                            </NavLink>
+                                        </DropdownItem>
+                                    );
+                                } else return;
+                            })}
+                        </DropdownMenu>
+                    </UncontrolledDropdown>
+                    <UncontrolledDropdown nav inNavbar>
+                        <DropdownToggle nav caret>
+                            Learnify
+                        </DropdownToggle>
+                        <DropdownMenu right>
+                            {posts.map(({ title, category, urlPath }) => {
+                                if(category === "Learnify") {
+                                    return (
+                                        <DropdownItem>
+                                            <NavLink href={`/blog/${urlPath}`}>
+                                                {title}
+                                            </NavLink>
+                                        </DropdownItem>
+                                    );
+                                } else return;
+                            })}
+                        </DropdownMenu> 
+                    </UncontrolledDropdown>
+                    <UncontrolledDropdown>
+                        <DropdownToggle nav caret>
+                            Projects
+                        </DropdownToggle>
+                        <DropdownMenu right>
+                            {posts.map(({ title, category, urlPath }) => {
+                                if(category === "Projects") {
+                                    return (
+                                        <DropdownItem>
+                                            <NavLink href={`/blog/${urlPath}`}>
+                                                {title}
+                                            </NavLink>
+                                        </DropdownItem>
+                                    );
+                                } else return;
+                            })}
+                        </DropdownMenu>
+                    </UncontrolledDropdown>
+                    <UncontrolledDropdown>
+                        <DropdownToggle nav caret>
+                            Tutorials
+                        </DropdownToggle>
+                        <DropdownMenu right>
+                            {posts.map(({ title, category, urlPath }) => {
+                                if(category === "Tutorials") {
+                                    return (
+                                        <DropdownItem>
+                                            <NavLink href={`/blog/${urlPath}`}>
+                                                {title}
+                                            </NavLink>
+                                        </DropdownItem>
+                                    );
+                                } else return;
+                            })}
+                        </DropdownMenu>
+                    </UncontrolledDropdown>
+                </Nav>
+                <NavLink href="/blog/admin">Admin</NavLink>
+            </Collapse>
+        </Navbar>
+    );
 };
-
-const mapStateToProps = state => ({
-    error: state.error,
-    post: state.post
-});
-
-const mapDispatchToProps = { fetchPosts, clearErrors };
-
-export default connect(mapStateToProps, mapDispatchToProps)(Nav);
