@@ -24,13 +24,16 @@ class ErrorBoundary extends Component {
     
     render() {
         const { hasError } = this.state;
-        const { children } = this.props;
+        const { 
+            children, 
+            error: { message } 
+        } = this.props;
 
         if(hasError) {
             return (
                 <>
                     <Helmet>
-                        <title>Learnify | 400 Bad Request Error</title>
+                        <title>400 Bad Request Error</title>
                     </Helmet>
                     <main role="main">
                         {message}
@@ -42,7 +45,7 @@ class ErrorBoundary extends Component {
 };
 
 const mapStateToProps = state => ({
-
+    error: state.error
 });
 
 const mapDispatchToProps = { logErrors };
