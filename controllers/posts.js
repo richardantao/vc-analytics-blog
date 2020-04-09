@@ -1,12 +1,13 @@
 const Post = require("../models/Posts");
 
 exports.create = (req, res) => {
-    const { title, category, body } = req.body;
+    const { title, category, text, urlPath } = req.body;
 
     Post.create({
         title, 
         category, 
-        body
+        text,
+        urlPath
     })
     .then(post => {
         return res.status(201).json(post);
@@ -18,7 +19,7 @@ exports.create = (req, res) => {
 
 exports.read= (req, res) => {
     Post.find()
-    .sort({ updatedAt: 1 })
+    .sort({ updatedAt: -1 })
     .then(posts => {
         if(!posts) {
             return res.status(404).json({ message: "Posts not found" });
@@ -49,13 +50,14 @@ exports.return = (req, res) => {
 
 exports.update = (req, res) => {
     const { _id } = req.params;
-    const { title, category, body } = req.body; 
+    const { title, category, text, urlPath } = req.body; 
 
     Post.findByIdAndUpdate(_id, {
         $set: {
-            title,
-            category,
-            body
+            title, 
+            category, 
+            text,
+            urlPath
         }
     })
     .then(post => {
