@@ -7,7 +7,8 @@ const cors = require("cors");
 
 /* --- Configuration --- */
 const app = express();
-const port = process.env.NODE_ENV || 3001;
+const port = process.env.PORT || 3001;
+require("./config/db");
 
 /* --- Middleware --- */
 app.use(helmet());

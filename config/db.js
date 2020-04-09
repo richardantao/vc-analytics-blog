@@ -11,7 +11,7 @@ const options = {
     useFindAndModify: false,
     connectTimeoutMS: 10000, 
     socketTimeoutMS: 45000
-}
+};
 
 mongoose.connect(mongoDB, options)
 .then(() =>  {
