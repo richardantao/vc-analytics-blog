@@ -1,7 +1,17 @@
 import React from "react";
 
-import "./Loading.scss";
+import { Spinner } from "reactstrap";
 
 export default () => {
-    return <div id="loading"></div>
+    return <Spinner 
+        style={{ 
+            fontSize: "4rem", 
+            height: "10rem", 
+            position: "fixed",
+            left: "42%",
+            top: "40%",
+            width: "10rem"
+        }} 
+        color="primary" 
+    />
 };
